@@ -1,7 +1,6 @@
 local notify = require("example-plugin.notifier")
 local M = {}
 
-
 local function isNotEmpty(s)
   return not (s == nil or s == '')
 end
@@ -17,7 +16,7 @@ local function handle_connection(action)
   end
 
   local channel = vim.g.exampleplugin_account
-  local cmd = 'tc ' .. action .. ' ' .. channel
+  local cmd = 'tc connect ' .. channel
 
   -- Start the job and store the job ID
   current_job_id = vim.fn.jobstart(cmd, {

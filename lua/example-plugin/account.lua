@@ -52,18 +52,11 @@ function M.add_auth()
 end
 
 
--- this will handle setting the account
---[[ function M.set_account() ]]
---[[     local account = vim.fn.input('Enter account: ') ]]
---[[     vim.g.exampleplugin_account = account ]]
---[[     notify.notify('Account set to ' .. account) ]]
---[[ end ]]
 function M.set_account()
     local account = vim.fn.input('Enter account: ')
     add_channel(account)
     vim.g.exampleplugin_account = account
 end
-
 
 
 return M
