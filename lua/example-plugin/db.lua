@@ -32,31 +32,18 @@ function M.get_channels()
     local channels = {}
     local rows = execute_query("SELECT name FROM twitch_channels")
     for _, row in ipairs(rows) do
-	    print(row[1])
-	    print(row)
-	    print(vim.inspect(row))
         table.insert(channels, row[1])
     end
     print(vim.inspect(channels))
-    print(channels)
     return channels
 end
 
---[[ function M.get_channels() ]]
---[[     local channels = {} ]]
---[[     local rows = execute_query("SELECT * FROM twitch_channels") ]]
---[[     for _, row in ipairs(rows) do ]]
---[[ 	table.insert(channels, row[2]) ]]
---[[     end ]]
---[[     print(vim.inspect(channels)) ]]
---[[     print(channels[1]) ]]
---[[     return channels ]]
---[[ end ]]
 
 function M.get_channels_count()
     local rows = execute_query("SELECT COUNT(*) FROM twitch_channels")
     print(rows[1][1])
-    print(rows)
+    print(vim.inspect(rows))
+    print(vim.inspect(rows[1]))
     --[[ return rows[1][1] ]]
 end
 
