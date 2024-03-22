@@ -24,6 +24,24 @@ local function execute_query(query)
     return result
 end
 
+local function dump_result(query)
+	open_database()
+	local result = db:exec(query)
+	if result == sqlite3.OK then
+		local rows = {}
+		local row = {}
+		while db:step() == sqlite3.ROW do
+			for i = 0, db:columns() - 1 do
+				row[db:column_name(i)] = db:column_text(i)
+			end
+			table.insert(rows, row)
+		end
+		print(vim.inspect(rows))
+		return rows
+	end
+	close_database()
+end
+
 local function check_if_channel_exists(channel)
     local rows = execute_query("SELECT * FROM twitch_channels WHERE name = '"..channel.."'")
     if not rows then
@@ -39,6 +57,7 @@ end
 
 function M.get_channels()
     local channels = {}
+    local test = dump_result("SELECT * FROM twitch_channels")
     local rows = execute_query("SELECT * FROM twitch_channels")
     for _, row in ipairs(rows) do
 	table.insert(channels, row.name)
