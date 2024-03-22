@@ -1,4 +1,5 @@
 local sqlite3 = require("ljsqlite3")
+local notify = require("example-plugin.notifier")
 
 local M = {}
 
