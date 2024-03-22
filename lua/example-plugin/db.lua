@@ -26,8 +26,10 @@ end
 
 local function check_if_channel_exists(channel)
     local rows = execute_query("SELECT * FROM twitch_channels WHERE name = '"..channel.."'")
-    --[[ return #rows > 0 ]]
-    return next(rows) ~= nil  -- Check if the table is not empty
+    if not rows then
+	return false
+    end
+    return #rows > 0
 end
 
 
