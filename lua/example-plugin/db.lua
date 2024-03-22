@@ -34,6 +34,8 @@ function M.get_channels()
     for _, row in ipairs(rows) do
         table.insert(channels, row["name"])
     end
+    print(vim.inspect(channels))
+    print(channels[1])
     return channels
 end
 
