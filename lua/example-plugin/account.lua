@@ -54,8 +54,8 @@ end
 
 function M.set_account()
     local account = vim.fn.input('Enter account: ')
-    add_channel(account)
     vim.g.exampleplugin_account = account
+    add_channel(account)
 end
 
 
