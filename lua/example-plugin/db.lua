@@ -72,6 +72,7 @@ function M.get_channels()
     for name, _ in pairs(uniqueChannels) do
         table.insert(uniqueChannelList, name)
     end
+    print(vim.inspect(uniqueChannelList))
     return uniqueChannelList
 end
 
@@ -102,6 +103,7 @@ end
 
 function M.add_channel(channel)
     if check_if_channel_exists(channel) then
+	    notify.notify("Channel already exists")
 	return
     end
     execute_query("INSERT INTO twitch_channels(name) VALUES('"..channel.."')")
