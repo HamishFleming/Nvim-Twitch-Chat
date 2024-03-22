@@ -6,6 +6,7 @@ local M = {}
 local db = sqlite3.open("nvim-tc.db")
 
 local function create_table()
+local db = sqlite3.open("nvim-tc.db")
   -- Create channel table
   db:exec[[
     CREATE TABLE IF NOT EXISTS twitch_channels (
@@ -32,6 +33,7 @@ local function create_table()
 end
 
 function M.get_channels()
+local db = sqlite3.open("nvim-tc.db")
   local channels = {}
   for row in db:nrows("SELECT * FROM twitch_channels") do
     table.insert(channels, row)
@@ -41,6 +43,7 @@ end
 
 
 function M.get_users()
+local db = sqlite3.open("nvim-tc.db")
   local users = {}
   for row in db:nrows("SELECT * FROM twitch_users") do
     table.insert(users, row)
@@ -49,6 +52,7 @@ function M.get_users()
 end
 
 function M.get_auth()
+local db = sqlite3.open("nvim-tc.db")
   local auth = {}
   for row in db:nrows("SELECT * FROM twitch_auth") do
     table.insert(auth, row)
@@ -57,14 +61,17 @@ function M.get_auth()
 end
 
 function M.add_channel(channel)
+local db = sqlite3.open("nvim-tc.db")
   db:exec("INSERT INTO twitch_channels (name) VALUES ('"..channel.."')")
 end
 
 function M.add_user(user)
+local db = sqlite3.open("nvim-tc.db")
   db:exec("INSERT INTO twitch_users (name) VALUES ('"..user.."')")
 end
 
 function M.add_auth(token)
+local db = sqlite3.open("nvim-tc.db")
   db:exec("INSERT INTO twitch_auth (token) VALUES ('"..token.."')")
 end
 
