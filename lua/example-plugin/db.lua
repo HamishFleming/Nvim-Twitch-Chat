@@ -35,6 +35,7 @@ function M.get_channels()
         table.insert(channels, row.name)
     end
     print(vim.inspect(channels))
+    print(channels)
     return channels
 end
 
