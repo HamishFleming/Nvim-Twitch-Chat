@@ -14,6 +14,7 @@ local db = sqlite3.open("nvim-tc.db")
     local channels = db:exec("SELECT * FROM twitch_channels")
     for _, channel in ipairs(channels) do
 	print(channel)
+	print(channel.name)
     end
     db:close()
     return channels
