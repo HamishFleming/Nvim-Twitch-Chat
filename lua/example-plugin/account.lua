@@ -29,7 +29,11 @@ function M.list_auth()
 end
 
 -- Add a channel to the database
-function M.add_channel(channel)
+--[[ function M.add_channel(channel) ]]
+--[[     db.add_channel(channel) ]]
+--[[     notify.notify('Channel ' .. channel .. ' added') ]]
+--[[ end ]]
+local function add_channel(channel)
     db.add_channel(channel)
     notify.notify('Channel ' .. channel .. ' added')
 end
@@ -57,7 +61,7 @@ end
 --[[ end ]]
 function M.set_account()
     local account = vim.fn.input('Enter account: ')
-    M.add_channel(account)
+    add_channel(account)
     vim.g.exampleplugin_account = account
 end
 

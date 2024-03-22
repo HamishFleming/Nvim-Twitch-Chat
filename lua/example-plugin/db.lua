@@ -41,7 +41,7 @@ end
 
 function M.add_channel(channel)
 local db = sqlite3.open("nvim-tc.db")
-  db:exec("INSERT INTO twitch_channels (name) VALUES ('"..channel.."')")
+  db:exec("INSERT INTO twitch_channels(name) VALUES('"..channel.."')")
   db:close()
 end
 
