@@ -8,4 +8,5 @@ M.disconnect = fetch.disconnect
 M.set_account = account.set_account
 
 M.list_channels = db.get_channels
+M.get_channels_count = db.get_channels_count
 return M
