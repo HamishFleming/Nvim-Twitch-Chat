@@ -41,9 +41,10 @@ function M.disconnect()
 
   local job_id = vim.fn.jobstart(cmd, {
     on_stdout = function(_, data, _)
-      for _, line in ipairs(split_message(data)) do
-	notify.notify(line)
-      end
+	notify.notify(data)
+ --[[      for _, line in ipairs(split_message(data)) do ]]
+	--[[ notify.notify(line) ]]
+ --[[      end ]]
     end,
     on_stderr = function(_, data, _)
       notify.notify(data)
