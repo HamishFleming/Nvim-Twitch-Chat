@@ -52,7 +52,9 @@ end
 
 function M.get_channels_count()
     local rows = execute_query("SELECT COUNT(*) FROM twitch_channels")
-    return rows[1][1]
+    print(rows[1][1])
+    print(rows)
+    --[[ return rows[1][1] ]]
 end
 
 function M.get_users()
