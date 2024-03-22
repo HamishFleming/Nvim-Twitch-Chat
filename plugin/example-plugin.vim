@@ -19,4 +19,5 @@ exe "lua package.path = package.path .. ';" . s:lua_rocks_deps_loc . "/lua-?/ini
 " Exposes the plugin's functions for use as commands in Neovim.
 " command! -nargs=0 FetchTodos lua require("example-plugin").con
 command! -nargs=0 TwitchConnect lua require("example-plugin").connect()
+command! -nargs=0 TwitchSetAccount lua require("example-plugin").set_account()
 " command! -nargs=0 CompleteTodo lua require("example-plugin").complete_todo()
