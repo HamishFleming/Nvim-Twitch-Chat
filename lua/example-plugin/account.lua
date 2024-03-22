@@ -28,13 +28,12 @@ function M.list_auth()
     end
 end
 
--- Add a channel to the database
---[[ function M.add_channel(channel) ]]
---[[     db.add_channel(channel) ]]
---[[     notify.notify('Channel ' .. channel .. ' added') ]]
---[[ end ]]
 local function add_channel(channel)
-    db.add_channel(channel)
+    local success = db.add_channel(channel)
+    if not success then
+	notify.notify('Channel ' .. channel .. ' already exists')
+	return
+    end
     notify.notify('Channel ' .. channel .. ' added')
 end
 

@@ -104,10 +104,10 @@ end
 
 function M.add_channel(channel)
     if check_if_channel_exists(channel) then
-	    notify.notify("Channel already exists")
-	return
+	return false
     end
     execute_query("INSERT INTO twitch_channels(name) VALUES('"..channel.."')")
+    return true
 end
 
 function M.add_user(user)
