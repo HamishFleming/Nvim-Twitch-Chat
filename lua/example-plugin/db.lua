@@ -1,7 +1,6 @@
 local sqlite3 = require("ljsqlite3")
 
 local M = {}
-
 local db
 
 local function open_database()
@@ -17,63 +16,95 @@ local function close_database()
     end
 end
 
-local function execute_query(query)
+local function execute_query(query, ...)
     open_database()
-    local result = db:exec(query)
+    local stmt = db:prepare(query)
+    if stmt then
+        stmt:bind_values(...)  -- Bind parameters
+        local result = stmt:exec()
+        stmt:finalize()  -- Finalize statement
+        close_database()
+        return result
+    end
     close_database()
-    return result
+    return nil
 end
 
 function M.create_table()
-    execute_query("CREATE TABLE IF NOT EXISTS twitch_channels(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL);")
+    execute_query("CREATE TABLE IF NOT EXISTS twitch_channels(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL)")
 end
 
 function M.get_channels()
     local channels = {}
-    local rows = execute_query("SELECT name FROM twitch_channels")
-    for _, row in ipairs(rows) do
-        table.insert(channels, row[1])
+    local stmt = db:prepare("SELECT name FROM twitch_channels")
+    if stmt then
+        for row in stmt:nrows() do
+            table.insert(channels, row.name)
+        end
+        stmt:finalize()
     end
-    -- print the length of the table
-    print(#channels)
     return channels
 end
 
-
 function M.get_channels_count()
-    local rows = execute_query("SELECT COUNT(*) FROM twitch_channels")
-    print(tonumber(rows[1][1]))
-    return tonumber(rows[1][1])
+    local stmt = db:prepare("SELECT COUNT(*) FROM twitch_channels")
+    if stmt then
+        local count = stmt:step()
+        stmt:finalize()
+        return count
+    end
+    return 0
 end
 
 function M.get_users()
     local users = {}
-    local rows = execute_query("SELECT * FROM twitch_users")
-    for _, row in ipairs(rows) do
-        table.insert(users, row.name)
+    local stmt = db:prepare("SELECT name FROM twitch_users")
+    if stmt then
+        for row in stmt:nrows() do
+            table.insert(users, row.name)
+        end
+        stmt:finalize()
     end
     return users
 end
 
 function M.get_auth()
     local auth = {}
-    local rows = execute_query("SELECT * FROM twitch_auth")
-    for _, row in ipairs(rows) do
-        table.insert(auth, row.token)
+    local stmt = db:prepare("SELECT token FROM twitch_auth")
+    if stmt then
+        for row in stmt:nrows() do
+            table.insert(auth, row.token)
+        end
+        stmt:finalize()
     end
     return auth
 end
 
 function M.add_channel(channel)
-    execute_query("INSERT INTO twitch_channels(name) VALUES('"..channel.."')")
+    -- Check if channel already exists
+    if M.channel_exists(channel) then
+        return false
+    end
+    return execute_query("INSERT INTO twitch_channels(name) VALUES(?)", channel)
 end
 
 function M.add_user(user)
-    execute_query("INSERT INTO twitch_users (name) VALUES ('"..user.."')")
+    return execute_query("INSERT INTO twitch_users(name) VALUES(?)", user)
 end
 
 function M.add_auth(token)
-    execute_query("INSERT INTO twitch_auth (token) VALUES ('"..token.."')")
+    return execute_query("INSERT INTO twitch_auth(token) VALUES(?)", token)
+end
+
+function M.channel_exists(channel)
+    local stmt = db:prepare("SELECT COUNT(*) FROM twitch_channels WHERE name = ?")
+    if stmt then
+        stmt:bind_values(channel)
+        local count = stmt:step()
+        stmt:finalize()
+        return count > 0
+    end
+    return false
 end
 
 return M
