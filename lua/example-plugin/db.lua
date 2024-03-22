@@ -107,4 +107,8 @@ function M.channel_exists(channel)
     return false
 end
 
+
+
+-- Call open_database function to initialize db at the beginning
+open_database()
 return M
