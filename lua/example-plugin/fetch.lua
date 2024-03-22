@@ -30,10 +30,7 @@ function M.connect()
 
   local job_id = vim.fn.jobstart(cmd, {
     on_stdout = function(_, data, _)
-      notify.notify(
-      	        table.concat(split_message(data), '\n')
-	)
-      --[[ data) ]]
+      notify.notify(split_message(data))
     end,
     on_stderr = function(_, data, _)
       notify.notify(data)
