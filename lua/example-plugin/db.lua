@@ -33,12 +33,24 @@ end
 
 function M.get_channels()
 local db = sqlite3.open("nvim-tc.db")
-  local channels = {}
-  for row in db:nrows("SELECT * FROM twitch_channels") do
-    table.insert(channels, row)
-  end
-  notify.notify(channels)
-  return channels
+  --[[ local channels = {} ]]
+  --[[ for row in db:nrows("SELECT * FROM twitch_channels") do ]]
+  --[[   table.insert(channels, row) ]]
+  --[[ end ]]
+  --[[ notify.notify(channels) ]]
+  --[[ return channels ]]
+    --[[ local db_results = db:exec("SELECT * FROM todo_list WHERE completed == 'No';") ]]
+    --[[ for _, item in ipairs(db_results[2]) do print(item) end ]]
+    --[[]]
+    --[[ db:close() ]]
+
+    local channels = db:exec("SELECT * FROM twitch_channels")
+    for _, channel in ipairs(channels) do
+	--[[ print(channel.name) ]]
+	notify.notify(channel.name)
+    end
+    db:close()
+    return channels
 end
 
 
