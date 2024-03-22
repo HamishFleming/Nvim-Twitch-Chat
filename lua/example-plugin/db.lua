@@ -32,6 +32,9 @@ function M.get_channels()
     local channels = {}
     local rows = execute_query("SELECT name FROM twitch_channels")
     for _, row in ipairs(rows) do
+	    print(row[1])
+	    print(row)
+	    print(vim.inspect(row))
         table.insert(channels, row[1])
     end
     print(vim.inspect(channels))
