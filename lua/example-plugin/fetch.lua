@@ -17,13 +17,20 @@ local function handle_connection(action)
   -- Start the job and store the job ID
   current_job_id = vim.fn.jobstart(cmd, {
     on_stdout = function(_, data, _)
-      notify.notify(data)
+      -- check not null
+      if data then
+	notify.notify(data)
+      end
     end,
     on_stderr = function(_, data, _)
-      notify.notify(data)
+      if data then
+        notify.notify(data)
+      end
     end,
     on_exit = function(_, code, _)
-      notify.notify('Exited with code ' .. code)
+      if data then
+      	notify.notify('Exited with code ' .. code)
+      end
     end
   })
 end
