@@ -1,18 +1,21 @@
 local notify = require("example-plugin.notifier")
 local M = {}
 
+-- Store the current job ID
+local current_job_id = nil
 
-function M.connect()
-  -- check that the account is set
+-- Function to handle connection and disconnection
+local function handle_connection(action)
   if vim.g.exampleplugin_account == nil then
     notify.notify('Account not set')
     return
   end
-  local channel = vim.g.exampleplugin_account
-  notify.notify('Connecting to channel')
-  local cmd = 'tc connect ' .. channel
 
-  local job_id = vim.fn.jobstart(cmd, {
+  local channel = vim.g.exampleplugin_account
+  local cmd = 'tc ' .. action .. ' ' .. channel
+
+  -- Start the job and store the job ID
+  current_job_id = vim.fn.jobstart(cmd, {
     on_stdout = function(_, data, _)
       notify.notify(data)
     end,
@@ -23,6 +26,22 @@ function M.connect()
       notify.notify('Exited with code ' .. code)
     end
   })
+end
+
+function M.connect()
+  notify.notify('Connecting to channel')
+  handle_connection('connect')
+end
+
+function M.disconnect()
+  if current_job_id then
+    -- Stop the current job if it exists
+    vim.fn.jobstop(current_job_id)
+    current_job_id = nil
+    notify.notify('Disconnected from channel')
+  else
+    notify.notify('No active connection to disconnect')
+  end
 end
 
 return M
