@@ -1,6 +1,4 @@
 local sqlite3 = require("ljsqlite3")
-local notify = require("example-plugin.notifier")
-
 
 local M = {}
 
@@ -47,8 +45,8 @@ local db = sqlite3.open("nvim-tc.db")
 
     local channels = db:exec("SELECT * FROM twitch_channels")
     for _, channel in ipairs(channels) do
-	--[[ print(channel.name) ]]
-	notify.notify(channel.name)
+	print(channel.name)
+	--[[ notify.notify(channel) ]]
     end
     db:close()
     return channels
