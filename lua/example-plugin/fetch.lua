@@ -1,6 +1,11 @@
 local notify = require("example-plugin.notifier")
 local M = {}
 
+
+local function isNotEmpty(s)
+  return not (s == nil or s == '')
+end
+
 -- Store the current job ID
 local current_job_id = nil
 
@@ -17,18 +22,17 @@ local function handle_connection(action)
   -- Start the job and store the job ID
   current_job_id = vim.fn.jobstart(cmd, {
     on_stdout = function(_, data, _)
-      -- check not null
-      if data then
+      if isNotEmpty(data) then
 	notify.notify(data)
       end
     end,
     on_stderr = function(_, data, _)
-      if data then
+      if isNotEmpty(data) then
         notify.notify(data)
       end
     end,
     on_exit = function(_, code, _)
-      if data then
+      if isNotEmpty(data) then
       	notify.notify('Exited with code ' .. code)
       end
     end
