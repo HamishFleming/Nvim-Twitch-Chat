@@ -58,6 +58,6 @@ local db = sqlite3.open("nvim-tc.db")
 end
 
 
-create_table()
+--[[ create_table() ]]
 
 return M
