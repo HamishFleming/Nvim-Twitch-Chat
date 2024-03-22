@@ -23,6 +23,8 @@ function M.connect()
       notify.notify('Exited with code ' .. code)
     end
   })
+
+
   --[[ local handle = io.popen(cmd) ]]
   --[[ for line in handle:lines() do ]]
   --[[   notify.notify(line) ]]
