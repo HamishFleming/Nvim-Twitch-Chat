@@ -41,10 +41,9 @@ function M.get_channels()
     local channels = {}
     local rows = execute_query("SELECT * FROM twitch_channels")
     for _, row in ipairs(rows) do
-	print(vim.inspect(row))
-	print(row.name)
-        table.insert(channels, row.name)
+	table.insert(channels, row.name)
     end
+    print(channels)
     print(vim.inspect(channels))
     -- Remove duplicates using a Lua table as a set
     local uniqueChannels = {}
