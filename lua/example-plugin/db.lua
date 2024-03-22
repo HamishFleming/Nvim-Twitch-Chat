@@ -43,17 +43,19 @@ function M.get_channels()
     for _, row in ipairs(rows) do
         table.insert(channels, row.name)
     end
-    print(channels)
+    print(vim.inspect(channels))
     -- Remove duplicates using a Lua table as a set
     local uniqueChannels = {}
     for _, name in ipairs(channels) do
         uniqueChannels[name] = true
     end
+    print(vim.inspect(uniqueChannels))
     -- Convert the set back to a list
     local uniqueChannelList = {}
     for name, _ in pairs(uniqueChannels) do
         table.insert(uniqueChannelList, name)
     end
+    print(vim.inspect(uniqueChannelList))
     return uniqueChannelList
 end
 
