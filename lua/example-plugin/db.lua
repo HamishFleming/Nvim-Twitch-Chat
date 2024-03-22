@@ -42,6 +42,7 @@ end
 function M.get_channels_count()
     local rows = execute_query("SELECT COUNT(*) FROM twitch_channels")
     print(vim.inspect(rows))
+    print(rows[1][1])
     --[[ return rows[1][1] ]]
 end
 
