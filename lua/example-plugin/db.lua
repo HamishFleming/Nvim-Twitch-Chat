@@ -26,8 +26,10 @@ end
 
 local function check_if_channel_exists(channel)
     local rows = execute_query("SELECT * FROM twitch_channels WHERE name = '"..channel.."'")
-    return #rows > 0
+    --[[ return #rows > 0 ]]
+    return next(rows) ~= nil  -- Check if the table is not empty
 end
+
 
 function M.create_table()
     execute_query("CREATE TABLE IF NOT EXISTS twitch_channels(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL);")
