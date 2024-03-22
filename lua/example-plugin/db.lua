@@ -34,17 +34,16 @@ function M.get_channels()
     for _, row in ipairs(rows) do
         table.insert(channels, row[1])
     end
-    print(vim.inspect(channels))
+    -- print the length of the table
+    print(#channels)
     return channels
 end
 
 
 function M.get_channels_count()
     local rows = execute_query("SELECT COUNT(*) FROM twitch_channels")
-    print(rows[1][1])
-    print(vim.inspect(rows))
-    print(vim.inspect(rows[1]))
-    --[[ return rows[1][1] ]]
+    print(tonumber(rows[1][1]))
+    return tonumber(rows[1][1])
 end
 
 function M.get_users()
