@@ -44,6 +44,7 @@ end
 
 local function check_if_channel_exists(channel)
     local rows = execute_query("SELECT * FROM twitch_channels WHERE name = '"..channel.."'")
+    print(vim.inspect(rows))
     if not rows then
 	return false
     end
@@ -58,33 +59,19 @@ end
 function M.get_channels()
     local channels = {}
     local rows = execute_query("SELECT * FROM twitch_channels")
-    print( "rows")
-    print(vim.inspect(rows.name))
-
     for _, row in ipairs(rows.name) do
-	    print("row")
-	print(row)
-	print("inspect row")
-	print(vim.inspect(row))
-
 	table.insert(channels, row)
     end
-    print("channels")
-    print(channels)
-    print("inspect channels")
-    print(vim.inspect(channels))
     -- Remove duplicates using a Lua table as a set
     local uniqueChannels = {}
     for _, name in ipairs(channels) do
         uniqueChannels[name] = true
     end
-    print(vim.inspect(uniqueChannels))
     -- Convert the set back to a list
     local uniqueChannelList = {}
     for name, _ in pairs(uniqueChannels) do
         table.insert(uniqueChannelList, name)
     end
-    print(vim.inspect(uniqueChannelList))
     return uniqueChannelList
 end
 
