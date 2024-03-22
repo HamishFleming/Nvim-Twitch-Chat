@@ -37,6 +37,7 @@ local db = sqlite3.open("nvim-tc.db")
   for row in db:nrows("SELECT * FROM twitch_channels") do
     table.insert(channels, row)
   end
+  notify.notify(channels)
   return channels
 end
 

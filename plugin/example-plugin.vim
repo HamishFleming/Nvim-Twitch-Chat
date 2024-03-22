@@ -20,3 +20,4 @@ exe "lua package.path = package.path .. ';" . s:lua_rocks_deps_loc . "/lua-?/ini
 command! -nargs=0 TwitchConnect lua require("example-plugin").connect()
 command! -nargs=0 TwitchDisconnect lua require("example-plugin").disconnect()
 command! -nargs=0 TwitchSetAccount lua require("example-plugin").set_account()
+command! -nargs=0 TwitchGetChannel lua require("example-plugin").list_channels()
