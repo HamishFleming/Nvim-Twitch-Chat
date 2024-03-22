@@ -1,15 +1,16 @@
 local notify = require("example-plugin.notifier")
 
-
 local M = {}
 
-
-
--- run npm command 'tc connect <channel>'
---[[ function M.connect(channel) ]]
 function M.connect()
+  -- check that the account is set
+  if vim.g.loaded_exampleplugin.account == nil then
+    notify.notify('Account not set')
+    return
+  end
+  local channel = vim.g.loaded_exampleplugin.account
   notify.notify('Connecting to channel')
-  local channel = "V3x_Tech"
+  --[[ local channel = "V3x_Tech" ]]
   local cmd = 'tc connect ' .. channel
 
   local job_id = vim.fn.jobstart(cmd, {
@@ -23,14 +24,6 @@ function M.connect()
       notify.notify('Exited with code ' .. code)
     end
   })
-
-
-  --[[ local handle = io.popen(cmd) ]]
-  --[[ for line in handle:lines() do ]]
-  --[[   notify.notify(line) ]]
-  --[[ end ]]
-
-
 end
 
 

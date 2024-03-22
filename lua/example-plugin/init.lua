@@ -1,16 +1,7 @@
--- Imports the plugin's additional Lua modules.
 local fetch = require("example-plugin.fetch")
---[[ local update = require("example-plugin.update") ]]
-
--- Creates an object for the module. All of the module's
--- functions are associated with this object, which is
--- returned when the module is called with `require`.
+local account = require("example-plugin.account")
 local M = {}
 
--- Routes calls made to this module to functions in the
--- plugin's other modules.
 M.connect = fetch.connect
---[[ M.insert_todo = update.insert_todo ]]
---[[ M.complete_todo = update.complete_todo ]]
-
+M.set_account = account.set_account
 return M

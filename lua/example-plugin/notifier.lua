@@ -1,6 +1,3 @@
-
-
-
 local M = {}
 
 function M.notify(message)
@@ -9,6 +6,5 @@ function M.notify(message)
         vim.log.levels.INFO
     )
 end
-
 
 return M
