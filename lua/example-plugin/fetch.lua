@@ -12,5 +12,4 @@ function M.connect(channel)
 end
 
 
-
-export = M
+return M
