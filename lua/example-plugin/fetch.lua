@@ -4,7 +4,7 @@ local M = {}
 
 function M.connect()
   -- check that the account is set
-  if vim.g.loaded_exampleplugin.account == nil then
+  if vim.g.exampleplugin_account == nil then
     notify.notify('Account not set')
     return
   end
