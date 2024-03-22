@@ -8,7 +8,7 @@ function M.connect()
     notify.notify('Account not set')
     return
   end
-  local channel = vim.g.loaded_exampleplugin.account
+  local channel = vim.g.exampleplugin_account
   notify.notify('Connecting to channel')
   --[[ local channel = "V3x_Tech" ]]
   local cmd = 'tc connect ' .. channel
