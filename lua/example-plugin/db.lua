@@ -8,28 +8,27 @@ local db = sqlite3.open("nvim-tc.db")
 local function create_table()
 local db = sqlite3.open("nvim-tc.db")
   -- Create channel table
-  db:exec[[
-    CREATE TABLE IF NOT EXISTS twitch_channels (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-    );
-  ]]
+    --[[ local db_results = db:exec("SELECT * FROM todo_list WHERE completed == 'No';") ]]
+  --[[ db:exec[[ ]]
+  --[[   CREATE TABLE IF NOT EXISTS twitch_channels ( ]]
+  --[[     id INTEGER PRIMARY KEY AUTOINCREMENT, ]]
+  --[[     name TEXT NOT NULL, ]]
+  --[[   ); ]]
+  db:exec( "CREATE TABLE IF NOT EXISTS twitch_channels (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL);")
 
   -- Create user table
-  db:exec[[
-    CREATE TABLE IF NOT EXISTS twitch_users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-    );
-  ]]
+  --[[ db:exec[[ ]]
+  --[[   CREATE TABLE IF NOT EXISTS twitch_users ( ]]
+  --[[     id INTEGER PRIMARY KEY AUTOINCREMENT, ]]
+  --[[     name TEXT NOT NULL, ]]
+  --[[   ); ]]
 
   -- Create Auth table
-  db:exec[[
-    CREATE TABLE IF NOT EXISTS twitch_auth (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      token TEXT NOT NULL
-    );
-  ]]
+  --[[ db:exec[[ ]]
+  --[[   CREATE TABLE IF NOT EXISTS twitch_auth ( ]]
+  --[[     id INTEGER PRIMARY KEY AUTOINCREMENT, ]]
+  --[[     token TEXT NOT NULL ]]
+  --[[   ); ]]
 end
 
 function M.get_channels()
