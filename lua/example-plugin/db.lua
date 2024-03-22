@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 local sqlite3 = require("ljsqlite3")
 
 
@@ -74,5 +67,8 @@ end
 function M.add_auth(token)
   db:exec("INSERT INTO twitch_auth (token) VALUES ('"..token.."')")
 end
+
+
+create_table()
 
 return M
