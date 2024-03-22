@@ -15,9 +15,8 @@ local function handle_connection(action)
     return
   end
 
-  --[[ local channel = vim.g.exampleplugin_account ]]
-  local channel = 'V3X_Tech'
-  local cmd = 'tc connect ' .. channel
+  local channel = vim.g.exampleplugin_account
+  local cmd = 'tc ' .. action .. ' ' .. channel
 
   -- Start the job and store the job ID
   current_job_id = vim.fn.jobstart(cmd, {
